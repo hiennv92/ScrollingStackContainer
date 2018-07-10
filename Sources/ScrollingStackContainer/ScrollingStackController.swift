@@ -182,6 +182,12 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 	public func relayoutItems() {
 		var offset_y: CGFloat = 0.0
 		let width = self.scrollView!.frame.size.width
+
+        self.items.forEach {
+            if let vc = $0.controller as? StackContainable {
+                $0.appearance = vc.preferredAppearanceInStack()
+            }
+        }
 		
 		for item in self.items {
 			var itemHeight: CGFloat = 0.0
