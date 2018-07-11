@@ -209,7 +209,10 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 			item.rect = CGRect(x: 0.0, y: offset_y, width: width, height: itemHeight)
 			item.controller.view.frame = item.rect // don't worry, its adjusted below
 			// add the view in place
+            item.controller.willMove(toParentViewController: self)
+            self.addChildViewController(item.controller)
 			self.scrollView!.addSubview(item.controller.view)
+            item.controller.didMove(toParentViewController: self)
 			offset_y += itemHeight // calculate the new offset
 		}
 		// Setup manyally the content size and adjust the items based upon the visibility
