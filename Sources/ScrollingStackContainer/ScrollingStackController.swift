@@ -107,7 +107,7 @@ extension StackContainable where Self: UIViewController {
 	}
 }
 
-public class ScrollingStackController: UIViewController, UIScrollViewDelegate {
+open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 	
 	/// This define the behaviour stack needs to keep for a specified controller
 	///
@@ -148,7 +148,7 @@ public class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 	/// Adjust stacked items as the view did scroll
 	///
 	/// - Parameter scrollView: scrollview
-	public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+	open func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		self.adjustContentOnScroll()
 	}
 	
