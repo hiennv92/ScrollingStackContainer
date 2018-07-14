@@ -209,10 +209,12 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 			item.rect = CGRect(x: 0.0, y: offset_y, width: width, height: itemHeight)
 			item.controller.view.frame = item.rect // don't worry, its adjusted below
 			// add the view in place
-            item.controller.willMove(toParentViewController: self)
-            self.addChildViewController(item.controller)
-			self.scrollView!.addSubview(item.controller.view)
-            item.controller.didMove(toParentViewController: self)
+            if item.controller.parent == nil {
+                item.controller.willMove(toParentViewController: self)
+                self.addChildViewController(item.controller)
+                self.scrollView!.addSubview(item.controller.view)
+                item.controller.didMove(toParentViewController: self)
+            }
 			offset_y += itemHeight // calculate the new offset
 		}
 		// Setup manyally the content size and adjust the items based upon the visibility
@@ -274,7 +276,7 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 						// simulate continous scrolling
 						let innerScrollOffsetY = mainOffsetY - itemRect.minY - insets.top
 						// This is the height of the visible region of the inner table/collection
-						let visibleInnerHeight = innerScroll.contentSize.height - innerScrollOffsetY
+						let visibleInnerHeight = max(innerScroll.contentSize.height, innerScroll.frame.height) - innerScrollOffsetY
 						
 						var innerScrollRect = CGRect.zero
 						innerScrollRect.origin = CGPoint(x: 0, y: innerScrollOffsetY + insets.top)
