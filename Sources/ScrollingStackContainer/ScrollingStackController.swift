@@ -197,7 +197,7 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 				// for UIViewController with table/collections/scrollview inside
 				// the occupied space is calculated with the content size of scroll
 				// itself and specified inset of it inside the parent view.
-				itemHeight = scrollView.contentSize.height
+				itemHeight = max(scrollView.contentSize.height, scrollView.frame.height)
 				itemHeight += insets.top + insets.bottom // take care of the insets
 				break
 			case .view(let height):
