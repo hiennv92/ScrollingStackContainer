@@ -197,7 +197,7 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 				// for UIViewController with table/collections/scrollview inside
 				// the occupied space is calculated with the content size of scroll
 				// itself and specified inset of it inside the parent view.
-				itemHeight = max(scrollView.contentSize.height, scrollView.frame.height)
+				itemHeight = scrollView.contentSize.height
 				itemHeight += insets.top + insets.bottom // take care of the insets
 				break
 			case .view(let height):
@@ -236,7 +236,7 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 	///   The frame of the inner scroll is adjusted in order to occupy at the max the entire region
 	///   of the parent, and when partially visible, only the visible region.
 	////  In this way we can maximize the memory usage by using table/collection's caching architecture.
-	private func adjustContentOnScroll() {
+	open func adjustContentOnScroll() {
 		let scrollView = self.scrollView!
 		let contentOffset = scrollView.contentOffset
 		
@@ -276,7 +276,7 @@ open class ScrollingStackController: UIViewController, UIScrollViewDelegate {
 						// simulate continous scrolling
 						let innerScrollOffsetY = mainOffsetY - itemRect.minY - insets.top
 						// This is the height of the visible region of the inner table/collection
-						let visibleInnerHeight = max(innerScroll.contentSize.height, innerScroll.frame.height) - innerScrollOffsetY
+						let visibleInnerHeight = innerScroll.contentSize.height - innerScrollOffsetY
 						
 						var innerScrollRect = CGRect.zero
 						innerScrollRect.origin = CGPoint(x: 0, y: innerScrollOffsetY + insets.top)
